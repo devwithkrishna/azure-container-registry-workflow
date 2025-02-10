@@ -119,8 +119,7 @@ jobs:
           "temporary": "${{ inputs.temporary }}",
           "zone_redundancy_for_acr": "${{ inputs.zone_redundancy_for_acr }}",
           "enable_replication": "${{ inputs.enable_replication }}",
-          "public_network_access_enabled": "${{ inputs.public_network_access_enabled }}",
-
+          "public_network_access_enabled": "${{ inputs.public_network_access_enabled }}"
         }' > inputs.json
 
     - name: Display inputs.json
