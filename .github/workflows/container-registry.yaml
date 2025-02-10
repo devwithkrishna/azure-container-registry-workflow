@@ -45,14 +45,6 @@ on:
         options:
         - "TRUE"
         - "FALSE"
-      azure_services_bypass:
-        description: 'Bypass Azure Services'
-        required: true
-        default: 'None'
-        type: choice
-        options:
-        - None
-        - AzureServices
       zone_redundancy_for_acr:
         description: 'Zone Redundancy for ACR'
         required: false
@@ -60,46 +52,54 @@ on:
       enable_replication:
         description: 'Enable Geo replication for ACR'
         required: false
-        default: true
-        type: boolean
-      geo_replication_locations:
-        description: 'Geo Replication Locations'
-        required: false
-        type: string
-      georeplication_zone_redundancy:
-        description: 'Geo Replication Zone Redundancy'
-        required: false
-        type: boolean
-      admin_enablde:
-        description: 'Enable Admin User'
-        required: false
         default: false
-        type: boolean
-      quarantine_policy_enabled:
-        description: 'Quarentine policy for ACR'
-        required: false
         type: boolean
       public_network_access_enabled:
         description: 'Public Network Access'
         required: false
         default: true
         type: boolean
-      retention_policy_in_days:
-        description: 'Retention Policy in Days'
-        required: false
-        type: number
-      trust_policy_enabled:
-        description: 'Trust Policy Enabled'
-        required: false
-        type: boolean
-      anonymous_pull_enabled:
-        description: 'Anonymous Pull Enabled'
-        required: false
-        type: boolean
-      data_endpoint_enabled:
-        description: 'Data Endpoint Enabled'
-        required: false
-        type: boolean
+      # azure_services_bypass:
+      #   description: 'Bypass Azure Services'
+      #   required: true
+      #   default: 'None'
+      #   type: choice
+      #   options:
+      #   - None
+      #   - AzureServices
+      # geo_replication_locations:
+      #   description: 'Geo Replication Locations'
+      #   required: false
+      #   type: string
+      # georeplication_zone_redundancy:
+      #   description: 'Geo Replication Zone Redundancy'
+      #   required: false
+      #   type: boolean
+      # admin_enablde:
+      #   description: 'Enable Admin User'
+      #   required: false
+      #   default: false
+      #   type: boolean
+      # quarantine_policy_enabled:
+      #   description: 'Quarentine policy for ACR'
+      #   required: false
+      #   type: boolean
+      # retention_policy_in_days:
+      #   description: 'Retention Policy in Days'
+      #   required: false
+      #   type: number
+      # trust_policy_enabled:
+      #   description: 'Trust Policy Enabled'
+      #   required: false
+      #   type: boolean
+      # anonymous_pull_enabled:
+      #   description: 'Anonymous Pull Enabled'
+      #   required: false
+      #   type: boolean
+      # data_endpoint_enabled:
+      #   description: 'Data Endpoint Enabled'
+      #   required: false
+      #   type: boolean
 
 jobs:
   init-action:
@@ -116,18 +116,9 @@ jobs:
           "application_name": "${{ inputs.application_name }}",
           "environment": "${{ inputs.environment }}",
           "temporary": "${{ inputs.temporary }}",
-          "azure_services_bypass": "${{ inputs.azure_services_bypass }}",
           "zone_redundancy_for_acr": "${{ inputs.zone_redundancy_for_acr }}",
           "enable_replication": "${{ inputs.enable_replication }}",
-          "geo_replication_locations": "${{ inputs.geo_replication_locations }}",
-          "georeplication_zone_redundancy": "${{ inputs.georeplication_zone_redundancy }}",
-          "admin_enablde": "${{ inputs.admin_enablde }}",
-          "quarantine_policy_enabled": "${{ inputs.quarantine_policy_enabled }}",
           "public_network_access_enabled": "${{ inputs.public_network_access_enabled }}",
-          "retention_policy_in_days": "${{ inputs.retention_policy_in_days }}",
-          "trust_policy_enabled": "${{ inputs.trust_policy_enabled }}",
-          "anonymous_pull_enabled": "${{ inputs.anonymous_pull_enabled }}",
-          "data_endpoint_enabled": "${{ inputs.data_endpoint_enabled }}"
 
         }' > inputs.json
 
