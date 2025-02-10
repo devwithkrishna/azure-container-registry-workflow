@@ -49,6 +49,7 @@ on:
         description: 'Zone Redundancy for ACR'
         required: false
         default: false
+        type: boolean
       enable_replication:
         description: 'Enable Geo replication for ACR'
         required: false
