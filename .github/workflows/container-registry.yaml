@@ -1,0 +1,140 @@
+name: Create Azure Container Registry
+on:
+  workflow_dispatch:
+    inputs:
+      resource_group_name:
+        description: 'Resource Group Name'
+        required: true
+        default: 'myResourceGroup'
+      container_registry_name:
+        description: 'Container Registry Name'
+        required: true
+        default: 'myContainerRegistry'
+      location:
+        description: 'Location'
+        required: true
+        default: 'centralIndia'
+      sku_name:
+        description: 'SKU Name'
+        required: true
+        default: 'Basic'
+        type: choice
+        options:
+        - Basic
+        - Standard
+        - Premium
+      application_name:
+        description: 'Application Name'
+        required: true
+        default: 'devwithkrishna'
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'DEV'
+        type: choice
+        options:
+        - DEV
+        - PROD
+        - QA
+        - UAT
+      temporary:
+        description: 'Temporary tag'
+        required: true
+        default: 'TRUE'
+        type: choice
+        options:
+        - "TRUE"
+        - "FALSE"
+      azure_services_bypass:
+        description: 'Bypass Azure Services'
+        required: true
+        default: 'None'
+        type: choice
+        options:
+        - None
+        - AzureServices
+      zone_redundancy_for_acr:
+        description: 'Zone Redundancy for ACR'
+        required: false
+        default: false
+      enable_replication:
+        description: 'Enable Geo replication for ACR'
+        required: false
+        default: true
+        type: boolean
+      geo_replication_locations:
+        description: 'Geo Replication Locations'
+        required: false
+        type: string
+      georeplication_zone_redundancy:
+        description: 'Geo Replication Zone Redundancy'
+        required: false
+        type: boolean
+      admin_enablde:
+        description: 'Enable Admin User'
+        required: false
+        default: false
+        type: boolean
+      quarantine_policy_enabled:
+        description: 'Quarentine policy for ACR'
+        required: false
+        type: boolean
+      public_network_access_enabled:
+        description: 'Public Network Access'
+        required: false
+        default: true
+        type: boolean
+      retention_policy_in_days:
+        description: 'Retention Policy in Days'
+        required: false
+        type: number
+      trust_policy_enabled:
+        description: 'Trust Policy Enabled'
+        required: false
+        type: boolean
+      anonymous_pull_enabled:
+        description: 'Anonymous Pull Enabled'
+        required: false
+        type: boolean
+      data_endpoint_enabled:
+        description: 'Data Endpoint Enabled'
+        required: false
+        type: boolean
+
+jobs:
+  init-action:
+    runs-on: "ubuntu-latest"
+    steps:
+
+    - name: Create inputs.json
+      run: |
+        echo '{
+          "resource_group_name": "${{ inputs.resource_group_name }}",
+          "container_registry_name": "${{ inputs.container_registry_name }}",
+          "location": "${{ inputs.location }}",
+          "sku_name": "${{ inputs.sku_name }}",
+          "application_name": "${{ inputs.application_name }}",
+          "environment": "${{ inputs.environment }}",
+          "temporary": "${{ inputs.temporary }}",
+          "azure_services_bypass": "${{ inputs.azure_services_bypass }}",
+          "zone_redundancy_for_acr": "${{ inputs.zone_redundancy_for_acr }}",
+          "enable_replication": "${{ inputs.enable_replication }}",
+          "geo_replication_locations": "${{ inputs.geo_replication_locations }}",
+          "georeplication_zone_redundancy": "${{ inputs.georeplication_zone_redundancy }}",
+          "admin_enablde": "${{ inputs.admin_enablde }}",
+          "quarantine_policy_enabled": "${{ inputs.quarantine_policy_enabled }}",
+          "public_network_access_enabled": "${{ inputs.public_network_access_enabled }}",
+          "retention_policy_in_days": "${{ inputs.retention_policy_in_days }}",
+          "trust_policy_enabled": "${{ inputs.trust_policy_enabled }}",
+          "anonymous_pull_enabled": "${{ inputs.anonymous_pull_enabled }}",
+          "data_endpoint_enabled": "${{ inputs.data_endpoint_enabled }}"
+
+        }' > inputs.json
+
+    - name: Display inputs.json
+      run: |
+        cat inputs.json
+
+    - name: Use inputs.json in another action
+      run: |
+        echo "Using inputs.json file in the next step."
